@@ -62,7 +62,7 @@ public abstract class ExpenseManager implements Serializable {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         Date transactionDate = calendar.getTime();
-
+        System.out.println("transactionDate "+ transactionDate);
         if (!amount.isEmpty()) {
             double amountVal = Double.parseDouble(amount);
             transactionsHolder.logTransaction(transactionDate, accountNo, expenseType, amountVal);
@@ -76,7 +76,8 @@ public abstract class ExpenseManager implements Serializable {
      * @return
      */
     public List<Transaction> getTransactionLogs() {
-        return transactionsHolder.getPaginatedTransactionLogs(10);
+ //       return transactionsHolder.getPaginatedTransactionLogs(10);          ///
+        return transactionsHolder.getAllTransactionLogs();
     }
 
     /***

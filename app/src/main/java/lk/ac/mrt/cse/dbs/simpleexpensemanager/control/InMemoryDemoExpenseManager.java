@@ -20,7 +20,10 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.InMemoryAccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.InMemoryTransactionDAO;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistantMemoryAccountDAO;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistantMemoryTransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.ui.MainActivity;
 
 /**
  *
@@ -35,11 +38,15 @@ public class InMemoryDemoExpenseManager extends ExpenseManager {
     public void setup() {
         /*** Begin generating dummy data for In-Memory implementation ***/
 
-        TransactionDAO inMemoryTransactionDAO = new InMemoryTransactionDAO();
-        setTransactionsDAO(inMemoryTransactionDAO);
+//        TransactionDAO inMemoryTransactionDAO = new InMemoryTransactionDAO();
+//        setTransactionsDAO(inMemoryTransactionDAO);
+        TransactionDAO persistantMemTransactionDAO = new PersistantMemoryTransactionDAO(MainActivity.getContext());
+        setTransactionsDAO(persistantMemTransactionDAO);
 
         AccountDAO inMemoryAccountDAO = new InMemoryAccountDAO();
         setAccountsDAO(inMemoryAccountDAO);
+//        AccountDAO persistantAccountDAO = new PersistantMemoryAccountDAO(MainActivity.getContext());
+//        setAccountsDAO(persistantAccountDAO);
 
         // dummy data
         Account dummyAcct1 = new Account("12345A", "Yoda Bank", "Anakin Skywalker", 10000.0);
