@@ -22,13 +22,13 @@ import java.util.Date;
  * This POJO holds the information regarding a single transaction.
  */
 public class Transaction {
-    private Date date;
+    private String date;
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -60,7 +60,7 @@ public class Transaction {
     private ExpenseType expenseType;
     private double amount;
 
-    public Transaction(Date date, String accountNo,
+    public Transaction(String date, String accountNo,
                        ExpenseType expenseType, double amount) {
         this.date = date;
         this.accountNo = accountNo;

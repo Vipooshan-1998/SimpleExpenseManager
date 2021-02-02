@@ -29,6 +29,7 @@ import android.support.v7.widget.Toolbar;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.InMemoryDemoExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistantMemoryAccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistantMemoryTransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 import java.util.Date;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     PersistantMemoryTransactionDAO myDb; //1
+    PersistantMemoryAccountDAO myDb1;
 
     public static Context getContext() {
         return mContext;
@@ -62,9 +64,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
-        myDb = new PersistantMemoryTransactionDAO(this);
-        Date date = new Date();
-        myDb.logTransaction(date, "1998", ExpenseType.INCOME,3000);
+//        myDb = new PersistantMemoryTransactionDAO(this);
+//        myDb1 = new PersistantMemoryAccountDAO(this);
+
+    //    myDb.logTransaction("01-02-2020", "1998", ExpenseType.INCOME,3000);
+//          myDb.getAllTransactionLogs();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
