@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class PersistantMemoryAccountDAO extends SQLiteOpenHelper implements Acco
     public static final String COL_3 = "ACCOUNT_HOLDER";
     public static final String COL_4 = "BALANCE";
 
+
     public PersistantMemoryAccountDAO(Context context) {
         super(context, DATABASE_NAME, null, 1);
         this.accounts = new HashMap<>();
@@ -35,8 +37,9 @@ public class PersistantMemoryAccountDAO extends SQLiteOpenHelper implements Acco
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL("create table " + TABLE_NAME + " (ACCOUNT_NO TEXT PRIMARY KEY, BANK TEXT, ACCOUNT_HOLDER TEXT, BALANCE INTEGER)");
-        db.execSQL("create table " + "Transaction_Table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, ACCOUNT_NO TEXT, TYPE TEXT, AMOUNT DOUBLE, DATE TEXT)");
+        db.execSQL("create table " + "Transaction_Table" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, ACCOUNT_NO TEXT NOT NULL, TYPE TEXT, AMOUNT DOUBLE, DATE TEXT)");
     }
 
     @Override
@@ -47,6 +50,7 @@ public class PersistantMemoryAccountDAO extends SQLiteOpenHelper implements Acco
 
     @Override
     public List<String> getAccountNumbersList() {
+
         List<String> transactionsNew = new LinkedList<>();
         transactionsNew.clear();
 
@@ -130,21 +134,32 @@ public class PersistantMemoryAccountDAO extends SQLiteOpenHelper implements Acco
 
     @Override
     public void updateBalance(String accountNo, ExpenseType expenseType, double amount) throws InvalidAccountException {
-        if (!accounts.containsKey(accountNo)) {
-            String msg = "Account " + accountNo + " is invalid.";
-            throw new InvalidAccountException(msg);
+//        if (!accounts.containsKey(accountNo)) {
+//            String msg = "Account " + accountNo + " is invalid.";
+//            throw new InvalidAccountException(msg);
+//        }
+//        Account account = accounts.get(accountNo);
+//        // specific implementation based on the transaction type
+//        switch (expenseType) {
+//            case EXPENSE:
+//                account.setBalance(account.getBalance() - amount);
+//
+//                break;
+//            case INCOME:
+//                account.setBalance(account.getBalance() + amount);
+//
+//                break;
+//        }
+//        accounts.put(accountNo, account);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqLiteQuery = "UPDATE Account_Table SET BALANCE = BALANCE + ?";
+        SQLiteStatement statement = db.compileStatement(sqLiteQuery);
+        if(expenseType == ExpenseType.EXPENSE){
+            statement.bindDouble(1,-amount);
+        }else {
+            statement.bindDouble(1, amount);
         }
-        Account account = accounts.get(accountNo);
-        // specific implementation based on the transaction type
-        switch (expenseType) {
-            case EXPENSE:
-                account.setBalance(account.getBalance() - amount);
-                break;
-            case INCOME:
-                account.setBalance(account.getBalance() + amount);
-                break;
-        }
-        accounts.put(accountNo, account);
+        statement.executeUpdateDelete();
     }
 
 
