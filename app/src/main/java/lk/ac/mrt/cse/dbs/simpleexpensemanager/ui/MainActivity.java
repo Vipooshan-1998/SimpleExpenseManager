@@ -28,7 +28,8 @@ import android.support.v7.widget.Toolbar;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.InMemoryDemoExpenseManager;
+//import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.InMemoryDemoExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistantExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistantMemoryAccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistantMemoryTransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
@@ -53,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    PersistantMemoryTransactionDAO myDb; //1
-    PersistantMemoryAccountDAO myDb1;
+//    PersistantMemoryTransactionDAO myDb; //1
+//    PersistantMemoryAccountDAO myDb1;
 
     public static Context getContext() {
         return mContext;
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         /***  Begin generating dummy data for In-Memory implementation  ***/
-        expenseManager = new InMemoryDemoExpenseManager();
+        expenseManager = new PersistantExpenseManager();
         /*** END ***/
     }
 
